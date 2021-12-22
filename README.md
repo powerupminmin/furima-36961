@@ -15,8 +15,7 @@
 
 ## Association
 - has_many :items
-- has_many :buyers
-- has_one  :item_buy
+- has_many :item_buys
 
 # itemsテーブル
 | column                | Type       | Option                         |
@@ -33,8 +32,7 @@
 
 ## Association
 - belongs_to :user
-- has_one :buyer
-- has_one :item_buy
+- has_one    :item_buy
 
 # buyersテーブル
 | column             | Type       | Option                          |
@@ -48,8 +46,7 @@
 | item_buy           | references | null: false, foreign_key: true  |
 
 ## Association
-belongs_to :item
-has_one :item_buy
+- belongs_to :item_buy
 
 # item_buysテーブル
 | column             | Type       | Option                          |
@@ -60,3 +57,4 @@ has_one :item_buy
 ## Association
 - belongs_to :user
 - belongs_to :item
+- has_one    :buyer
