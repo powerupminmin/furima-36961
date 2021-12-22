@@ -16,7 +16,7 @@
 ## Association
 - has_many :items
 - has_many :buyers
-- has_one :item_buy
+- has_one  :item_buy
 
 # itemsテーブル
 | column                | Type       | Option                         |
@@ -45,21 +45,18 @@
 | address            | string     | null: false                     |
 | building_name      | string     |                                 |
 | phone_number       | string     | null: false                     |
-| user               | references | null: false, foreign_key: true  |
-| item               | references | null: false, foreign_key: true  |
+| item_buy           | references | null: false, foreign_key: true  |
 
 ## Association
 belongs_to :item
 has_one :item_buy
 
-# item_buyテーブル
+# item_buysテーブル
 | column             | Type       | Option                          |
 | ------------------ | ---------- | ------------------------------- |
 | user               | references | null: false, foreign_key: true  |
 | item               | references | null: false, foreign_key: true  |
-| buyer              | references | null: false, foreign_key: true  |
 
 ## Association
 - belongs_to :user
 - belongs_to :item
-- belongs_to :buyer
