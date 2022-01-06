@@ -4,18 +4,21 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  PASSWORD_REGEX = /([0-9].*[a-zA-Z]|[a-zA-Z].*[0-9])/.freeze
+  validates_format_of :password, with: PASSWORD_REGEX, message: 'は半角英数字混合で設定してください'
+
   validates :nickname,         presence: true
   validates :born_day,         presence: true
 
-  with_options presence: true, format: { with: /\A[ぁ-んァ-ヶー-龥々]+\z/, message: 'には全角文字を使用してください' } do
+  with_options presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: 'には全角文字を使用してください' } do
   validates :family_name
   validates :first_name
   end
 
-  with_options presence: true, format: { with: /\A[ァ-ヶ]+\z/, message: 'には全角カタカナを使用してください' } do
+  with_options presence: true, format: { with: /\A[ァ-ヴー]+\z/u, message: 'には全角カタカナを使用してください' } do
   validates :family_name_kana
   validates :first_name_kana
   end
 
-  validates :encrypted_password,:password,:password_confirmation,format:{with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{7,}/}
+  validates :encrypted_password,:password,:password_confirmation,format:{with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,}/}
 end
