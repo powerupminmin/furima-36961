@@ -8,9 +8,18 @@ class ItemsController < ApplicationController
     @item = Item.new
   end
 
+  def create
+    @item =Item.create(item_params)
+    if @items.save
+      redirect_to root_path
+    else
+      render :new
+    end
+  end
+
   private
   
-  def message_params
-    params.require(:item).permit(:content, :image).merge(user_id: current_user.id)
+  def item_params
+    params.require(:item).permit(:image).merge(user_id: current_user.id)
   end
 end
