@@ -1,11 +1,15 @@
 class ItemsController < ApplicationController
-
   def index
    @items = Item.all
   end
 
   def new
     @item = Item.new
+    if current_user
+      render :new
+    else
+      redirect_to  new_user_session_path
+    end
   end
 
   def create
