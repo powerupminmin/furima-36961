@@ -1,19 +1,14 @@
 class ItemsController < ApplicationController
   def index
-   @items = Item.all
+   #@items = Item.all
   end
 
   def new
     @item = Item.new
-    if current_user
-      render :new
-    else
-      redirect_to  new_user_session_path
-    end
   end
 
   def create
-    @item =Item.create(item_params)
+    @item =Item.new(item_params)
     if @item.save
       redirect_to root_path
     else
