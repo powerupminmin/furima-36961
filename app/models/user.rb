@@ -3,6 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  
+  has_many :items
 
   PASSWORD_REGEX = /\A([0-9].*[a-zA-Z]|[a-zA-Z].*[0-9])\z/.freeze
   validates_format_of :password, with: PASSWORD_REGEX, message: 'は半角英数字混合で設定してください'
