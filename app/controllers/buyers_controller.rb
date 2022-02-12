@@ -1,8 +1,8 @@
 class BuyersController < ApplicationController
   before_action :authenticate_user!, only: [:index]
+  before_action :item_find, only: [:index, :create]
 
   def index
-    item_find
     @item_buy_buyer = ItemBuyBuyer.new
     if current_user == @item.user || @item.item_buy != nil
       redirect_to root_path
@@ -10,7 +10,6 @@ class BuyersController < ApplicationController
   end
 
   def create
-    item_find
     @item_buy_buyer = ItemBuyBuyer.new(item_buy_buyer_params)
     if @item_buy_buyer.valid?
       pay_item
