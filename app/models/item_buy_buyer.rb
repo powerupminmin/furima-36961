@@ -1,6 +1,6 @@
 class ItemBuyBuyer
   include ActiveModel::Model
-  attr_accessor :post_code, :area_id, :city, :address, :building_name, :phone_number, :user_id, :item_id, :item_buy_id
+  attr_accessor :post_code, :area_id, :city, :address, :building_name, :phone_number, :user_id, :item_id, :item_buy_id, :token
 
   with_options presence: true do
   validates :item_id
@@ -10,6 +10,7 @@ class ItemBuyBuyer
   validates :city
   validates :address
   validates :phone_number, format: { with: /\A\d{10,11}\z/}
+  validates :token, presence: true
   end
 
   def save

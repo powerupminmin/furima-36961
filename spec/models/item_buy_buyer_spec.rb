@@ -45,6 +45,11 @@ RSpec.describe ItemBuyBuyer, type: :model do
         @item_buy_buyer.valid?
         expect(@item_buy_buyer.errors.full_messages).to include("Phone number can't be blank")
       end
+      it 'トークンがないと保存できない' do
+        @item_buy_buyer.token = nil
+        @item_buy_buyer.valid?
+        expect(@item_buy_buyer.errors.full_messages).to include("Token can't be blank")
+      end
       it '郵便番号は半角のハイフンを含んだ正しい形式でないと保存できない' do
         @item_buy_buyer.post_code = '1234567'
         @item_buy_buyer.valid?
