@@ -2,7 +2,7 @@ class BuyersController < ApplicationController
   before_action :authenticate_user!, only: [:index]
 
   def index
-    @item = Item.find(params[:item_id])
+    item_find
     @item_buy_buyer = ItemBuyBuyer.new
     if current_user == @item.user || @item.item_buy != nil
       redirect_to root_path
@@ -10,7 +10,7 @@ class BuyersController < ApplicationController
   end
 
   def create
-    @item = Item.find(params[:item_id])
+    item_find
     @item_buy_buyer = ItemBuyBuyer.new(item_buy_buyer_params)
     if @item_buy_buyer.valid?
       pay_item
@@ -22,6 +22,10 @@ class BuyersController < ApplicationController
   end
 
   private
+
+  def item_find
+    @item = Item.find(params[:item_id])
+  end
 
   def item_buy_buyer_params
     params.require(:item_buy_buyer).permit(:post_code, :area_id, :city, :address, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token] )

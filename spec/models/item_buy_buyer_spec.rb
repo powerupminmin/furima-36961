@@ -45,6 +45,16 @@ RSpec.describe ItemBuyBuyer, type: :model do
         @item_buy_buyer.valid?
         expect(@item_buy_buyer.errors.full_messages).to include("Phone number can't be blank")
       end
+      it '電話番号は11桁を超えると購入できない' do
+        @item_buy_buyer.phone_number = '111111111111'
+        @item_buy_buyer.valid?
+        expect(@item_buy_buyer.errors.full_messages).to include("Phone number is invalid")
+      end
+      it '電話番号に数字以外が混じっていると購入できない' do
+        @item_buy_buyer.phone_number = '111a111i11'
+        @item_buy_buyer.valid?
+        expect(@item_buy_buyer.errors.full_messages).to include("Phone number is invalid")
+      end
       it 'トークンがないと保存できない' do
         @item_buy_buyer.token = nil
         @item_buy_buyer.valid?
@@ -60,7 +70,16 @@ RSpec.describe ItemBuyBuyer, type: :model do
         @item_buy_buyer.valid?
         expect(@item_buy_buyer.errors.full_messages).to include("Phone number is invalid")
       end
+      it 'ユーザー情報がないと購入できない' do
+        @item_buy_buyer.user_id = nil
+        @item_buy_buyer.valid?
+        expect(@item_buy_buyer.errors.full_messages).to include("User can't be blank")
+      end
+      it '商品情報がないと購入できない' do
+        @item_buy_buyer.item_id = nil
+        @item_buy_buyer.valid?
+        expect(@item_buy_buyer.errors.full_messages).to include("Item can't be blank")
+      end
     end
-
   end
 end
